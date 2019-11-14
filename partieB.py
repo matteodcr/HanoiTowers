@@ -1,6 +1,11 @@
+from turtle import *
+from numpy import *
+
+
 def largeur_pgdisque(n):
     petit_disque = 40
     return (petit_disque+30*(n))
+from partieA import *
 
 def base(n):
     for i in range(0,2):
@@ -13,8 +18,7 @@ def tour(n):
     down()
     dep = (3*2*20+3*largeur_pgdisque(n))/6
 
-    forward(dep)
-    backward(3)
+    forward(dep-3)
     left(90)
     forward((n+1)*20)
     right(90)
@@ -22,8 +26,7 @@ def tour(n):
     right(90)
     forward((n+1)*20)
     left(90)
-    forward(dep)
-    backward(3)
+    forward(dep-3)
     up()
         
 
@@ -34,6 +37,7 @@ def dessine_plateau(n):
     base(n)
     for i in range(0,3):
         tour(n)
+
 def dessine_disque(plateau, nd, n,couleur):
     dep = (3*2*20+3*largeur_pgdisque(n))/6
     postour,posdisque, len = position_disque(plateau,nd)

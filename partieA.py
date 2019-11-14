@@ -1,5 +1,3 @@
-
-
 def init(n) :
     plateau = []             #liste des 3 tours
     tour_init = []          #liste de départ
