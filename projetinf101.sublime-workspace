@@ -1,0 +1,260 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"git",
+				"Git: Init"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"package control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"package c",
+				"Package Control: Disable Package"
+			],
+			[
+				"packa",
+				"Install Package Control"
+			],
+			[
+				"pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: sea",
+				"Package Control: Discover Packages"
+			],
+			[
+				"",
+				"Arithmetic"
+			],
+			[
+				"term",
+				"Terminal: Open in project folder"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install\t",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install Package",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 145.0,
+		"history":
+		[
+			"print(5)",
+			"pip3 install flask",
+			"print(5)",
+			"python3",
+			"pip"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/mattdecorsaire/prog/projetinf101.py",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/Git/Git.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/GitHub.sublime-settings",
+		"/print('oui').py",
+		"/home/mattdecorsaire/.bash_history",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/Python3.sublime-build",
+		"/home/mattdecorsaire/prog/annale.py",
+		"/home/mattdecorsaire/prog/2Bataille Navale - Final - PEP8.py",
+		"/home/mattdecorsaire/prog/.vscode/corrigé annale mat101.py",
+		"/usr/share/pyzo/pyzo/codeeditor/base.py",
+		"/home/mattdecorsaire/Bataille Navale - Final - PEP8.py",
+		"/home/mattdecorsaire/prog/.vscode/Bataille Navale - Final - PEP8.py",
+		"/home/mattdecorsaire/tracker/Xuggle/share/ffmpeg/untitled.py",
+		"/home/mattdecorsaire/tracker/Xuggle/share/ffmpeg/libx264-hq.ffpreset",
+		"/home/mattdecorsaire/hello.py",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/A File Icon/.sublime/A File Icon.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/A File Icon.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/Python.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/Anaconda/Default (Linux).sublime-keymap",
+		"/home/mattdecorsaire/.config/sublime-text-3/Packages/SideBarEnhancements/Side Bar.sublime-settings"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 64.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/User/Python3.sublime-build",
+	"project": "projetinf101.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 276.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
