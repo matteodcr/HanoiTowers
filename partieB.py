@@ -1,11 +1,13 @@
 from turtle import *
 from numpy import *
+from partieA import *
 
 
 def largeur_pgdisque(n):
     petit_disque = 40
     return (petit_disque+30*(n))
-from partieA import *
+
+
 
 def base(n):
     for i in range(0,2):
