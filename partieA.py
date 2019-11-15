@@ -31,10 +31,11 @@ def position_disque(plateau: list, numdisque):
 
 def verifier_deplacement(plateau, nt1, nt2):
     assert nombre_disques(plateau,nt1)==0
-    assert disque_superieur(plateau, nt1)>(plateau, nt2)
+    assert disque_superieur(plateau, nt1)>disque_superieur(plateau, nt2)
     return True
 
 def verifier_victoire(plateau,n):
     copy = list(plateau)
     copy.reverse()
     assert copy != plateau
+    return True

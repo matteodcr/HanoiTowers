@@ -72,7 +72,7 @@ def dessine_disque(plateau, nd, n,couleur):
     forward((40+30*nd)/2)
     end_fill()
 
-def efface_disque(plateau, nd, n, state):
+def efface_disque(plateau, nd, n):
     dessine_disque(plateau, nd,n,'blanc')
     if state == 'single':
         goto(-300,200)
@@ -91,7 +91,7 @@ def efface_tout(plateau, n):
     for index_tour,value_tour in enumerate(plateau):
         l = list(plateau[index_tour])
         for i in range(0,len(l)):
-            efface_disque(plateau, l[i]-1,n, None)
+            efface_disque(plateau, l[i]-1,n)
         goto(-300,200)
         pencolor("red")
     for i in range(0,3):

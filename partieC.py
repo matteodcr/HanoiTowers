@@ -1,6 +1,21 @@
+from partieA import *
+from partieB import *
+
 def lire_coords(plateau):
-	num_tourd = int(input('Saisir numéro tour départ'))
-	while num_tourd < 0 or num_tourd>2 :
-		num_tourd = int(input('Erreur ! Choisir entre 0 et 2'))
-	num_toura = int(input('Saisir numéro tour arrivée'))
+	ntd = int(input('Saisir numéro tour départ'))
+	nta = int(input('Saisir numéro tour arrivée'))
+	while ntd < 0 or ntd>2 or nta < 0 or nta>2 or not verifier_deplacement(plateau, nta, ntd):  
+		ntd = int(input('Saisir numéro tour départ'))
+		nta = int(input('Saisir numéro tour arrivée'))
+
+	return ntd, nta
+
+def jouer_un_coup(tableau, n):
+	num_tourd, num_toura = lire_coords(tableau)
+	efface_disque(plateau, num_tourd, n)
+	dessine_disque(plateau, num_toura, n,'noir')
+
+def boucle_jeu(plateau, n):
+	while verifier_victoire(plateau, n) != True :
+		jouer_un_coup(tableau,n)
 
