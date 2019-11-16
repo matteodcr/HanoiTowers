@@ -41,11 +41,14 @@ def verifier_deplacement(plateau, nt1, nt2):
         return False
     return True
  
-
+plateau = [[],[],[3,1]]
 def verifier_victoire(plateau,n):
     copy = list(plateau)
-    copy.reverse()
-    assert copy != plateau
+    compare = init(n)
+    compare.reverse()
+    if copy != compare : return False
     return True
+
+
 
 

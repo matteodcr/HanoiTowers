@@ -28,12 +28,8 @@ def boucle_jeu(plateau, n):
 		limite_coup -= 1
 	return "Vous avez gagné"
 
-def main_test(n):
-	plateau = [[1],[3],[2]]
-	print(lire_coords(plateau))
 
 
-main_test(3)
 
 
 

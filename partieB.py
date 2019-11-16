@@ -40,6 +40,7 @@ def dessine_plateau(n):
     for i in range(0,3):
         tour(n)
 
+
 def dessine_disque(plateau, nd, n,couleur):
     dep = (3*2*20+3*largeur_pgdisque(n))/6
     postour,posdisque, len = position_disque(plateau,nd)
@@ -71,7 +72,7 @@ def dessine_disque(plateau, nd, n,couleur):
     right(90)
     forward((40+30*nd)/2)
     end_fill()
-
+    
 def efface_disque(plateau, nd, n):
     dessine_disque(plateau, nd,n,'blanc')
     if state == 'single':
