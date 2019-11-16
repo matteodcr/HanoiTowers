@@ -43,7 +43,6 @@ def dessine_plateau(n):
 
 def dessine_disque(plateau, nd, n,couleur):
     dep = (3*2*20+3*largeur_pgdisque(n))/6
-    print(position_disque(plateau,nd))
     postour,posdisque, len = position_disque(plateau,nd)
     goto(-300,200)
     up()
@@ -99,4 +98,4 @@ def efface_tout(plateau, n):
     for i in range(0,3):
         tour(n)
 
-speed(5)
+speed(10)

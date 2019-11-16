@@ -10,11 +10,14 @@ def lire_coords(plateau):
 
 	return ntd, nta
 
-def jouer_un_coup(tableau, n):
-	num_tourd, num_toura = lire_coords(tableau)
+def jouer_un_coup(plateau, n):
+	num_tourd, num_toura = lire_coords(plateau)
 	if num_tourd > -1 :
-		#efface_disque(plateau, disque_superieur(plateau, num_tourd), n, 'single')
-		dessine_disque(plateau, disque_superieur(plateau, num_toura), n,'noir')
+		efface_disque(plateau, disque_superieur(plateau, num_tourd)-1, n, 'single')
+		plateau[num_toura].append(disque_superieur(plateau, num_tourd))
+		del plateau[num_tourd][disque_superieur(plateau,num_tourd)+1]
+		print(disque_superieur(plateau, num_toura))
+		dessine_disque(plateau, 1, n,'noir')
 
 	else : return num_tourd
 

@@ -19,7 +19,7 @@ def nombre_disques(plateau: list, numtour):
 def disque_superieur(plateau: list, numtour):
     tour = plateau[numtour]
     if len(tour) == 0: return -1
-    else: return tour[len(tour) - 1]
+    else: return tour[len(tour)-1]
 
 def position_disque(plateau: list, numdisque):
     for index_tour,value_tour in enumerate(plateau):
@@ -27,6 +27,7 @@ def position_disque(plateau: list, numdisque):
         for i in range(0,len(l)) :
             if l[i]-1 == numdisque :
                 return index_tour, l[i], len(l)+1
+    return None
 
 
 def verifier_deplacement(plateau, nt1, nt2):
@@ -41,7 +42,6 @@ def verifier_deplacement(plateau, nt1, nt2):
         return False
     return True
  
-plateau = [[],[],[3,1]]
 def verifier_victoire(plateau,n):
     copy = list(plateau)
     compare = init(n)

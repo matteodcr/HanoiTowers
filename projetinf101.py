@@ -13,6 +13,8 @@ def main():
     dessine_config(plateau, n)
     boucle_jeu(plateau, n)
 
+
+
 main()
 
 
