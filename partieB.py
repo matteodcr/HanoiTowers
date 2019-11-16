@@ -43,6 +43,7 @@ def dessine_plateau(n):
 
 def dessine_disque(plateau, nd, n,couleur):
     dep = (3*2*20+3*largeur_pgdisque(n))/6
+    print(position_disque(plateau,nd))
     postour,posdisque, len = position_disque(plateau,nd)
     goto(-300,200)
     up()
@@ -73,7 +74,7 @@ def dessine_disque(plateau, nd, n,couleur):
     forward((40+30*nd)/2)
     end_fill()
     
-def efface_disque(plateau, nd, n):
+def efface_disque(plateau, nd, n,state):
     dessine_disque(plateau, nd,n,'blanc')
     if state == 'single':
         goto(-300,200)
@@ -92,7 +93,7 @@ def efface_tout(plateau, n):
     for index_tour,value_tour in enumerate(plateau):
         l = list(plateau[index_tour])
         for i in range(0,len(l)):
-            efface_disque(plateau, l[i]-1,n)
+            efface_disque(plateau, l[i]-1,n, None)
         goto(-300,200)
         pencolor("red")
     for i in range(0,3):

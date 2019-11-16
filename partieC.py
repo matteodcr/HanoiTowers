@@ -13,8 +13,8 @@ def lire_coords(plateau):
 def jouer_un_coup(tableau, n):
 	num_tourd, num_toura = lire_coords(tableau)
 	if num_tourd > -1 :
-		efface_disque(plateau, num_tourd, n)
-		dessine_disque(plateau, num_toura, n,'noir')
+		#efface_disque(plateau, disque_superieur(plateau, num_tourd), n, 'single')
+		dessine_disque(plateau, disque_superieur(plateau, num_toura), n,'noir')
 
 	else : return num_tourd
 
