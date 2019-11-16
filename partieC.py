@@ -4,7 +4,7 @@ from partieB import *
 def lire_coords(plateau):
 	ntd = int(input('Saisir numéro tour départ'))
 	nta = int(input('Saisir numéro tour arrivée'))
-	while ntd < 0 or ntd>2 or nta < 0 or nta>2 or not verifier_deplacement(plateau, nta, ntd):  
+	while ntd <= -1 or ntd>2 or nta < 0 or nta>2 or verifier_deplacement(plateau, ntd, nta)== False :  
 		ntd = int(input('Saisir numéro tour départ'))
 		nta = int(input('Saisir numéro tour arrivée'))
 
@@ -12,10 +12,30 @@ def lire_coords(plateau):
 
 def jouer_un_coup(tableau, n):
 	num_tourd, num_toura = lire_coords(tableau)
-	efface_disque(plateau, num_tourd, n)
-	dessine_disque(plateau, num_toura, n,'noir')
+	if num_tourd > -1 :
+		efface_disque(plateau, num_tourd, n)
+		dessine_disque(plateau, num_toura, n,'noir')
+
+	else : return num_tourd
 
 def boucle_jeu(plateau, n):
-	while verifier_victoire(plateau, n) != True :
-		jouer_un_coup(tableau,n)
+	limite_coup = 5
+	while verifier_victoire(plateau, n) != True:
+		if jouer_un_coup(plateau,n) == -1: 
+			return "Vous avez decidé d'arrêter."
+		if limite_coup == 0 :
+			return "Perdu ! Vous avez utilisé tous les coups"
+		limite_coup -= 1
+	return "Vous avez gagné"
+
+def main_test(n):
+	plateau = [[1],[3],[2]]
+	print(lire_coords(plateau))
+
+
+main_test(3)
+
+
+
+
 

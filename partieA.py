@@ -30,12 +30,22 @@ def position_disque(plateau: list, numdisque):
 
 
 def verifier_deplacement(plateau, nt1, nt2):
-    assert nombre_disques(plateau,nt1)==0
-    assert disque_superieur(plateau, nt1)>disque_superieur(plateau, nt2)
+    if nombre_disques(plateau, nt2)==0:
+        print("liste d'arrivée vide")
+        return True
+    if nombre_disques(plateau,nt1)==0 :
+        print("Erreur liste de depart vide")
+        return False
+    if disque_superieur(plateau, nt1)>disque_superieur(plateau, nt2) : 
+        print('Erreur disque trop grand')
+        return False
     return True
+ 
 
 def verifier_victoire(plateau,n):
     copy = list(plateau)
     copy.reverse()
     assert copy != plateau
     return True
+
+

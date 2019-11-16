@@ -4,16 +4,21 @@ from numpy import *
 
 from partieA import *
 from partieB import *
+from partieC import *
 
-#n = int(input('Entrez votre valeur n : '))
+
 
 def main(n):
-    plateau=init(n)
+    plateau = init(n)
     dessine_plateau(n)
-    dessine_config(plateau,n)
-    efface_tout(plateau, n)
+    dessine_config(plateau, n)
+    boucle_jeu(plateau, n)
+
+main(3)
+
     
-main(4)
+    
+
     
         
 
