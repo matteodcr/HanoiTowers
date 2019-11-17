@@ -3,24 +3,27 @@ from numpy import *
 from partieA import *
 
 
-def largeur_pgdisque(n):
-    petit_disque = 40
-    return (petit_disque+30*(n))
-
-
+def LargeurPGDisque(n): #ok
+    '''Renvoie la largeur du plus grand disque en fonction de n'''
+    return (40+30*(n))
 
 def base(n):
+    '''dessine la base en fonction de n'''
+    down()
     for i in range(0,2):
-        forward(3*2*20+3*largeur_pgdisque(n))
+        forward(120+3*LargeurPGDisque(n))
         right(90)
         forward(20)
         right(90)
+    up()
 
-def tour(n):
+def tour(n): #ok
+    '''dessine une tour'''
+
     down()
-    dep = (3*2*20+3*largeur_pgdisque(n))/6
 
-    forward(dep-3)
+    dep = ((120+3*LargeurPGDisque(n))/6)-3
+    forward(dep)
     left(90)
     forward((n+1)*20)
     right(90)
@@ -28,74 +31,92 @@ def tour(n):
     right(90)
     forward((n+1)*20)
     left(90)
-    forward(dep-3)
+    forward(dep)
+
     up()
         
-
-def dessine_plateau(n):
+def dessine_plateau(n): #ok
+    '''fusion de base et tour x3'''
     up()
     goto(-300,200)
     down()
+
     base(n)
     for i in range(0,3):
         tour(n)
 
 
-def dessine_disque(plateau, nd, n,couleur):
-    dep = (3*2*20+3*largeur_pgdisque(n))/6
-    postour,posdisque, len = position_disque(plateau,nd)
-    goto(-300,200)
+
+def dessine_disque(plateau, NumDisque, n, couleur): #ok
+    '''dessine un disque specifique'''
+    dep = (120+3*LargeurPGDisque(n))/6
+    IndexTour, IndexDisque, len = position_disque(plateau,NumDisque)
+
     up()
-    if postour == 0 :
+    if IndexTour == 0 :
         goto((-300+dep),200)
-    if postour == 1 :
+    if IndexTour == 1 :
         goto((-300+3*dep),200)
-    if postour == 2 :
+    if IndexTour == 2 :
         goto((-300+5*dep),200)
     down()
+
     if couleur == 'noir':fillcolor('black')
     if couleur == 'blanc':fillcolor('white')
         
-   
     begin_fill()
     left(90)
     up()
-    forward(20*(len-posdisque))
+    forward(20*(IndexDisque+1))
     right(90)
-    forward((40+30*nd)/2)
-    right(90)
-    forward(20)
-    right(90)
-    forward(40+30*nd)
+    forward((40+30*NumDisque)/2)
     right(90)
     forward(20)
     right(90)
-    forward((40+30*nd)/2)
+    forward(40+30*NumDisque)
+    right(90)
+    forward(20)
+    right(90)
+    forward((40+30*NumDisque)/2)
     end_fill()
-    
-def efface_disque(plateau, nd, n,state):
-    dessine_disque(plateau, nd,n,'blanc')
+
+def efface_disque(plateau, NumDisque, n,state): #ok
+    '''efface un disque en utilisant dessine_disque mais en blanc'''
+    down()
+    dessine_disque(plateau, NumDisque, n, 'blanc')
+
     if state == 'single':
         goto(-300,200)
-        pencolor("red")
         for i in range(0,3):
             tour(n)
+    up()
 
-def dessine_config(plateau, n):
-    for index_tour,value_tour in enumerate(plateau):
-        l = list(plateau[index_tour])
+#plateau = [[2],[3],[1]]
+#dessine_plateau(3)
+
+
+def dessine_config(plateau, n): #ok
+    '''dessine la config de depat'''
+    down()
+    for IndexTour in range(0,len(plateau)):
+        l = list(plateau[IndexTour])
         for i in range(0,len(l)) :
-            dessine_disque(plateau, l[i]-1,n,'noir')
+            dessine_disque(plateau, l[i],n,'noir')
+    up()
 
-            
-def efface_tout(plateau, n):
-    for index_tour,value_tour in enumerate(plateau):
-        l = list(plateau[index_tour])
+
+     
+def efface_tout(plateau, n): #ok
+    down()
+
+    for IndexTour in range(0,len(plateau)):
+        l = list(plateau[IndexTour])
         for i in range(0,len(l)):
-            efface_disque(plateau, l[i]-1,n, None)
+            efface_disque(plateau, l[i],n, 'yesai')
+
         goto(-300,200)
-        pencolor("red")
     for i in range(0,3):
         tour(n)
+    up()
 
-speed(10)
+
