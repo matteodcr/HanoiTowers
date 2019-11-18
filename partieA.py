@@ -31,27 +31,27 @@ def position_disque(plateau: list, NumDisque): #ok
 
     for index_tour in range(0,len(plateau)):
         if len(plateau[index_tour]) == 0 :
-            return -1
+            return -1, -1, 0
         l = list(plateau[index_tour])
         for i in range(0,len(l)) :
             if l[i] == NumDisque :
-                return index_tour,i, len(l)
+                return index_tour, i, len(l)
 
     return 'error'
 
-def verifier_deplacement(plateau:list, IndexTourDep, IndexTourFin): #ok
+def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin): #ok
     '''Renvoie un booléen pour savoir si un deplacement de disque sup 
-       de IndexTourDep vers disque sup de IndexTourFin est possible'''
+       de index_tour_dep vers disque sup de index_tour_fin est possible'''
 
-    if nombre_disques(plateau,IndexTourDep)==0 :
+    if nombre_disques(plateau,index_tour_dep)==0 :
         print("Erreur liste de depart vide")
         return False
 
-    if nombre_disques(plateau,IndexTourFin)==0 :
+    if nombre_disques(plateau,index_tour_fin)==0 :
         print("Liste d'arrivée vide")
         return True
 
-    if disque_superieur(plateau, IndexTourDep)>disque_superieur(plateau, IndexTourFin) : 
+    if disque_superieur(plateau, index_tour_dep)>disque_superieur(plateau, index_tour_fin) : 
         print('Erreur disque trop grand')
         return False
 

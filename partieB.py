@@ -2,6 +2,8 @@ from turtle import *
 from numpy import *
 from partieA import *
 
+#rajouter def square pour simplifier
+
 
 def LargeurPGDisque(n): #ok
     '''Renvoie la largeur du plus grand disque en fonction de n'''
