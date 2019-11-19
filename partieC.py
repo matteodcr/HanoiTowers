@@ -4,7 +4,7 @@ from partieB import *
 def lire_coords(plateau):
 	index_tour_dep = int(input('Saisir numéro tour départ'))
 	index_tour_fin = int(input('Saisir numéro tour arrivée'))
-	while ntd <= -1 or ntd>2 or nta < 0 or nta>2 or verifier_deplacement(plateau, ntd, nta)== False :  
+	while index_tour_dep <= -1 or index_tour_dep>2 or index_tour_fin < 0 or index_tour_fin>2 or verifier_deplacement(plateau, index_tour_dep, index_tour_fin)== False :  
 		index_tour_dep  = int(input('Saisir numéro tour départ'))
 		index_tour_fin  = int(input('Saisir numéro tour arrivée'))
 
@@ -13,14 +13,14 @@ def lire_coords(plateau):
 def jouer_un_coup(plateau, n):
 	index_tour_dep, index_tour_fin = lire_coords(plateau)
 	if index_tour_dep > -1 :
-		efface_disque(plateau, disque_superieur(plateau, index_tour_dep)-1, n, 'single')
-		plateau[num_toura].append(disque_superieur(plateau, num_tourd))
-		del plateau[num_tourd][disque_superieur(plateau,num_tourd)+1]
-		if disque_superieur(plateau, num_tourd) == 
-		print(disque_superieur(plateau, num_toura))
-		dessine_disque(plateau, disque_superieur(plateau, IndexTour), n,'noir')
+		efface_disque(plateau, n, disque_superieur(plateau, index_tour_dep), 'single')
+		plateau[index_tour_fin].append(disque_superieur(plateau, index_tour_dep))
+		del plateau[index_tour_dep][disque_superieur(plateau,index_tour_dep)+1]
+		if disque_superieur(plateau, index_tour_dep) == -1:
+			print(disque_superieur(plateau, index_tour_fin))
+		dessine_disque(plateau, disque_superieur(plateau, index_tour_fin), n,'noir')
 
-	else : return num_tourd
+	else : return index_tour_dep
 
 def boucle_jeu(plateau, n):
 	limite_coup = 5

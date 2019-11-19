@@ -23,18 +23,18 @@ def disque_superieur(plateau: list, IndexTour): #ok
     '''Renvoie le dernier element de la liste IndexTour : le disque superieur'''
 
     tour = plateau[IndexTour]
-    if len(tour) == 0: return -1
+    if len(tour) == 0: return 0
     else: return tour[len(tour)-1]
 
-def position_disque(plateau: list, NumDisque): #ok
+def position_disque(plateau: list, num_disque): #ok
     '''Renvoie la position d'un disque'''
 
     for index_tour in range(0,len(plateau)):
         if len(plateau[index_tour]) == 0 :
-            return -1, -1, 0
+            return -1, -1, -1
         l = list(plateau[index_tour])
         for i in range(0,len(l)) :
-            if l[i] == NumDisque :
+            if l[i] == num_disque :
                 return index_tour, i, len(l)
 
     return 'error'

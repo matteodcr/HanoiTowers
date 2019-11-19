@@ -2,8 +2,15 @@ from turtle import *
 from numpy import *
 from partieA import *
 
-#rajouter def square pour simplifier
 
+# def constantes(n)
+
+# def rect(cote_a, cote_b):
+#     for i in range(0,2):
+#         forward(cote_a)
+#         left(90)
+#         forward(cote_b)
+#         left(90)
 
 def LargeurPGDisque(n): #ok
     '''Renvoie la largeur du plus grand disque en fonction de n'''
@@ -24,8 +31,8 @@ def tour(n): #ok
 
     down()
 
-    dep = ((120+3*LargeurPGDisque(n))/6)-3
-    forward(dep)
+    tier_base = ((120+3*LargeurPGDisque(n))/6)-3
+    forward(tier_base)
     left(90)
     forward((n+1)*20)
     right(90)
@@ -33,7 +40,7 @@ def tour(n): #ok
     right(90)
     forward((n+1)*20)
     left(90)
-    forward(dep)
+    forward(tier_base)
 
     up()
         
@@ -47,20 +54,22 @@ def dessine_plateau(n): #ok
     for i in range(0,3):
         tour(n)
 
+def largeur_disque(num_disque):
+    return 40+30*num_disque
 
 
-def dessine_disque(plateau, NumDisque, n, couleur): #ok
+def dessine_disque(plateau, num_disque, n, couleur): #ok
     '''dessine un disque specifique'''
-    dep = (120+3*LargeurPGDisque(n))/6
-    IndexTour, IndexDisque, len = position_disque(plateau,NumDisque)
+    tier_base = (120+3*LargeurPGDisque(n))/6
+    IndexTour, index_disque, len = position_disque(plateau,num_disque)
 
     up()
     if IndexTour == 0 :
-        goto((-300+dep),200)
+        goto((-300+tier_base),200)
     if IndexTour == 1 :
-        goto((-300+3*dep),200)
+        goto((-300+3*tier_base),200)
     if IndexTour == 2 :
-        goto((-300+5*dep),200)
+        goto((-300+5*tier_base),200)
     down()
 
     if couleur == 'noir':fillcolor('black')
@@ -69,23 +78,23 @@ def dessine_disque(plateau, NumDisque, n, couleur): #ok
     begin_fill()
     left(90)
     up()
-    forward(20*(IndexDisque+1))
+    forward(20*(index_disque+1))
     right(90)
-    forward((40+30*NumDisque)/2)
-    right(90)
-    forward(20)
-    right(90)
-    forward(40+30*NumDisque)
+    forward((largeur_disque(num_disque))/2)
     right(90)
     forward(20)
     right(90)
-    forward((40+30*NumDisque)/2)
+    forward(largeur_disque(num_disque))
+    right(90)
+    forward(20)
+    right(90)
+    forward((largeur_disque(num_disque))/2)
     end_fill()
 
-def efface_disque(plateau, NumDisque, n,state): #ok
+def efface_disque(plateau, n, num_disque, state): #ok
     '''efface un disque en utilisant dessine_disque mais en blanc'''
     down()
-    dessine_disque(plateau, NumDisque, n, 'blanc')
+    dessine_disque(plateau, num_disque, n, 'blanc')
 
     if state == 'single':
         goto(-300,200)
@@ -98,7 +107,7 @@ def efface_disque(plateau, NumDisque, n,state): #ok
 
 
 def dessine_config(plateau, n): #ok
-    '''dessine la config de depat'''
+    '''dessine la config de depart'''
     down()
     for IndexTour in range(0,len(plateau)):
         l = list(plateau[IndexTour])
