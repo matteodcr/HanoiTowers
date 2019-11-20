@@ -1,32 +1,32 @@
-def init(n) : #ok
+def init(n) : 
     '''Crée une liste de liste représentant le plateau initial : [[n,...,2,1],[],[]]'''
 
     plateau = []             
-    TourInit = []          
-    TourIntermediaire = []
-    TourDestination = []   
+    tour_init = []          
+    tour_intermediaire = []
+    tour_destination = []   
   
     for i in range(n,0,-1):
-        TourInit.append(i)
+        tour_init.append(i)
 
-    plateau.append(TourInit)
-    plateau.append(TourIntermediaire)
-    plateau.append(TourDestination)
+    plateau.append(tour_init)
+    plateau.append(tour_intermediaire)
+    plateau.append(tour_destination)
 
     return plateau
 
-def nombre_disques(plateau:list, IndexTour): #ok
-    '''Renvoie le nombre de disques dans IndexTour'''
-    return len(plateau[IndexTour])
+def nombre_disques(plateau:list, index_tour): 
+    '''Renvoie le nombre de disques dans index_tour'''
+    return len(plateau[index_tour])
 
-def disque_superieur(plateau: list, IndexTour): #ok
-    '''Renvoie le dernier element de la liste IndexTour : le disque superieur'''
+def disque_superieur(plateau: list, index_tour): 
+    '''Renvoie le dernier element de la liste index_tour : le disque superieur'''
 
-    tour = plateau[IndexTour]
+    tour = plateau[index_tour]
     if len(tour) == 0: return 0
     else: return tour[len(tour)-1]
 
-def position_disque(plateau: list, num_disque): #ok
+def position_disque(plateau: list, num_disque): 
     '''Renvoie la position d'un disque'''
 
     for index_tour in range(0,len(plateau)):
@@ -39,7 +39,7 @@ def position_disque(plateau: list, num_disque): #ok
 
     return 'error'
 
-def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin): #ok
+def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin):
     '''Renvoie un booléen pour savoir si un deplacement de disque sup 
        de index_tour_dep vers disque sup de index_tour_fin est possible'''
 
@@ -57,7 +57,7 @@ def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin): #ok
 
     return True
  
-def verifier_victoire(plateau:list, n): #ok
+def verifier_victoire(plateau:list, n): 
     '''Renvoie un booléen : la liste finale est elle l'inverse de la liste de départ ?'''
 
     copy = list(plateau)
