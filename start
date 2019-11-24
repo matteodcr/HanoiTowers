@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 projetinf101.py
+python3 main.py
