@@ -1,8 +1,6 @@
 #Librairies
 from turtle import *
 
-from numpy import *
-
 from partieA import *
 from partieB import *
 from partieC import *

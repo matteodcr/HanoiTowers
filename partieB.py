@@ -1,7 +1,3 @@
-from turtle import *
-
-from numpy import *
-
 from partieA import *
 from turtle_utils import *
 
