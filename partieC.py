@@ -1,6 +1,7 @@
 from partieA import *
 from partieB import *
 
+
 def changer_disque_tour(plateau, index_tour_dep, index_tour_fin):
 	plateau[index_tour_fin].append(disque_superieur(plateau, index_tour_dep))
 	del plateau[index_tour_dep][-1]
@@ -27,7 +28,7 @@ def jouer_un_coup(plateau, n):
 		# if disque_superieur(plateau, index_tour_dep) == -1:
 		# 	print(disque_superieur(plateau, index_tour_fin))
 		changer_disque_tour(plateau, index_tour_dep,index_tour_fin)
-		dessine_disque(plateau, disque_superieur(plateau, index_tour_fin), n,'noir')
+		dessine_disque(plateau, disque_superieur(plateau, index_tour_fin), n, 'black')
 		return index_tour_dep
 
 	else : return index_tour_dep
@@ -35,7 +36,7 @@ def jouer_un_coup(plateau, n):
 def boucle_jeu(plateau, n):
 	'''boucle de jeu qui se coupe selon les conditions données ...'''
 	limite_coup = 5
-	while verifier_victoire(plateau, n) != True:
+	while not verifier_victoire(plateau, n):
 		arret = jouer_un_coup(plateau,n)
 		print(plateau)
 		if arret == -1: 
@@ -44,15 +45,3 @@ def boucle_jeu(plateau, n):
 			return "Perdu ! Vous avez utilisé tous les coups"
 		limite_coup -= 1
 	return "Vous avez gagné"
-
-
-
-
-
-
-
-
-
-
-
-

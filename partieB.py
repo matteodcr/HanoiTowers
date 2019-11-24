@@ -1,8 +1,9 @@
 from turtle import *
+
 from numpy import *
+
 from partieA import *
 from turtle_utils import *
-
 
 ##CONSTANTES
 LARGEUR_PETIT_DISQUE = 40
@@ -29,94 +30,59 @@ def hauteur_disque(num_disque):
 ##DESSIN AVEC TURTLE
 def base(n):
     '''dessine la base en fonction de n'''
-    down()
-    rect(largeur_base(n),20)
-    up()
-    
-    return ((120+3*largeur_pgdisque(n))/6)-3
+    rect(0, 0, largeur_base(n), 20)
 
-def dessine_tour(n): 
+def dessine_tour(n, index: int): 
     '''dessine une tour'''
-    tier_base = (largeur_base(n)/6)
-
-    down()
-    forward(tier_base)
-    rect(6,hauteur_tour(n))
-    forward(tier_base)
-    up()
+    third_width = largeur_base(n) / 3
+    third_x = third_width * index
+    offset = third_width / 2 - 3
+    rect(third_x + offset, 20, 6, hauteur_tour(n))
         
 def dessine_plateau(n): #ok
     '''fusion de base et tour x3'''
-    up()
-    goto(-300,180)
-    down()
     base(n)
-
-    goto(-300,200)
+    
     for i in range(0,3):
-        dessine_tour(n)
+        dessine_tour(n, i)
 
-def coord_disque(plateau, n, num_disque):
-
-    tier_base = largeur_base(n)/6
-    index_tour, index_disque, nb_disque_tour = position_disque(plateau,num_disque)
-
-    up()
-    if index_tour == 0 :
-        goto((-300+tier_base),200)
-    if index_tour == 1 :
-        goto((-300+3*tier_base),200)
-    if index_tour == 2 :
-        goto((-300+5*tier_base),200)
-    down()
-
-    return index_disque
-
-
-def dessine_disque(plateau, num_disque, n, couleur): 
+def dessine_disque(plateau, num_disque, n, color = 'black'): 
     '''dessine un disque specifique'''
 
-    if couleur == 'noir':fillcolor('black') #pour dessiner
-    if couleur == 'blanc':fillcolor('white') #pour effacer
+    tour_index, hauteur, _ = position_disque(plateau, num_disque)
+    disque_width = largeur_disque(num_disque)
 
-    index_disque = coord_disque(plateau, n, num_disque)
-
-    up()
-    forward((largeur_disque(num_disque)+LARGEUR_TOUR)/2)
-    tourner_gauche()
-    forward(hauteur_disque(index_disque))
+    third_width = largeur_base(n) / 3
+    third_x = third_width * tour_index
+    offset = third_width / 2 - disque_width / 2
 
     begin_fill()
-    rect(20, largeur_disque(num_disque))
+    rect(
+        third_x + offset,
+        (hauteur + 1) * 20,
+        largeur_disque(num_disque),
+        20,
+        fill_color=color,
+    )
     end_fill()
-    tourner_droite()
 
 
 def efface_disque(plateau, n, num_disque, state): 
     '''efface un disque en utilisant dessine_disque mais en blanc'''
-    down()
-    dessine_disque(plateau, num_disque, n, 'blanc')
+    dessine_disque(plateau, num_disque, n, color='white')
 
     if state == 'single':
-        goto(-300,200)
         for i in range(0,3):
-            dessne_tour(n)
-    up()
+            dessine_tour(n, i)
 
 def dessine_config(plateau, n): 
     '''dessine la config de depart'''
-    down()
     for IndexTour in range(0,len(plateau)):
         l = list(plateau[IndexTour])
         for i in range(0,len(l)) :
-            dessine_disque(plateau, l[i],n,'noir')
-    up()
-
-
+            dessine_disque(plateau, l[i],n,'black')
      
 def efface_tout(plateau, n): 
-    down()
-
     for IndexTour in range(0,len(plateau)):
         l = list(plateau[IndexTour])
         for i in range(0,len(l)):
@@ -124,7 +90,4 @@ def efface_tout(plateau, n):
 
         goto(-300,200)
     for i in range(0,3):
-        tour(n)
-    up()
-
-
+        dessine_tour(n)
