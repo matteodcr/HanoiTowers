@@ -26,9 +26,7 @@ def disque_superieur(plateau: list, index_tour):
     if len(tour) == 0: return 0
     else: return tour[len(tour)-1]
 
-def position_disque(plateau: list, num_disque): 
-    '''Renvoie la position d'un disque'''
-
+def position_disque(plateau: list, num_disque) -> tuple: 
     for index_tour in range(0,len(plateau)):
         if len(plateau[index_tour]) == 0 :
             return -1, -1, -1
@@ -37,7 +35,7 @@ def position_disque(plateau: list, num_disque):
             if l[i] == num_disque :
                 return index_tour, i, len(l)
 
-    return 'error'
+    raise IndexError()
 
 def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin):
     '''Renvoie un booléen pour savoir si un deplacement de disque sup 
