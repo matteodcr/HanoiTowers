@@ -35,7 +35,7 @@ def jouer_un_coup(plateau, n):
 
 def boucle_jeu(plateau, n):
 	'''boucle de jeu qui se coupe selon les conditions données ...'''
-	limite_coup = 5
+	limite_coup = 100
 	while not verifier_victoire(plateau, n):
 		arret = jouer_un_coup(plateau,n)
 		print(plateau)
