@@ -22,18 +22,23 @@ def nombre_disques(plateau:list, index_tour):
 def disque_superieur(plateau: list, index_tour): 
     '''Renvoie le dernier element de la liste index_tour : le disque superieur'''
 
-    tour = plateau[index_tour]
-    if len(tour) == 0: return 0
+    tour = plateau[index_tour] # Selectionne la tour choisie
+
+    if len(tour) == 0: return 0 
     else: return tour[len(tour)-1]
 
 def position_disque(plateau: list, num_disque) -> tuple: 
-    for index_tour in range(0,len(plateau)):
-        if len(plateau[index_tour]) == 0 :
-            return -1, -1, -1
-        l = list(plateau[index_tour])
-        for i in range(0,len(l)) :
-            if l[i] == num_disque :
-                return index_tour, i, len(l)
+    ''' [double boucle for] Renvoie l'index de la tour, l'index du disque et 
+         la longueur de la tour'''
+
+    # On parcours les 3 tours
+    for index_tour, valeur_tour in enumerate(plateau):
+
+        # On parcours les disques d'une tour
+        for index_disque, valeur_disque in enumerate(valeur_tour):
+
+            if valeur_disque == num_disque : # Si on trouve le disque recherché
+                return index_tour, index_disque, len(valeur_tour)
 
     raise IndexError()
 
@@ -49,7 +54,8 @@ def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin):
         print("Liste d'arrivée vide")
         return True
 
-    if disque_superieur(plateau, index_tour_dep)>disque_superieur(plateau, index_tour_fin) : 
+    # On ne peut pas placer un disque plus grand sur un disque plus petit
+    if disque_superieur(plateau, index_tour_dep) >= disque_superieur(plateau, index_tour_fin) : 
         print('Erreur disque trop grand')
         return False
 
@@ -58,8 +64,9 @@ def verifier_deplacement(plateau:list, index_tour_dep, index_tour_fin):
 def verifier_victoire(plateau:list, n): 
     '''Renvoie un booléen : la liste finale est elle l'inverse de la liste de départ ?'''
 
-    copy = list(plateau)
-    compare = init(n)
+    copy = list(plateau) # Liste temporaire
+
+    compare = init(n) 
     compare.reverse()
     if copy != compare : return False
 
