@@ -48,48 +48,4 @@ def dessine_plateau(n):
         dessine_tour(n, i)
 
 
-def dessine_disque(plateau, num_disque, n, color = 'black'): 
-    '''dessine un disque specifique'''
 
-    tour_index, hauteur, _ = position_disque(plateau, num_disque)
-    disque_width = largeur_disque(num_disque)
-
-    third_width = largeur_base(n) / 3
-    third_x = third_width * tour_index
-    offset = third_width / 2 - disque_width / 2
-
-    rect(
-        third_x + offset,
-        (hauteur + 1) * 20,
-        largeur_disque(num_disque),
-        20,
-        fill_color=color,
-    )
-
-
-def efface_disque(plateau, n, num_disque, state): 
-    '''efface un disque en utilisant dessine_disque mais en blanc'''
-    dessine_disque(plateau, num_disque, n, color='white')
-
-    if state == 'single':
-        for i in range(0, 3):
-            dessine_tour(n, i)
-
-
-def dessine_config(plateau, n): 
-    '''dessine la config de depart'''
-    for index_tour in range(0, len(plateau)):
-        l = list(plateau[index_tour])
-        for i in range(0, len(l)) :
-            dessine_disque(plateau, l[i],n,'black')
-
-
-def efface_tout(plateau, n): 
-    for index_tour in range(0, len(plateau)):
-        l = list(plateau[index_tour])
-        for i in range(0, len(l)):
-            efface_disque(plateau, l[i], n, 'yesai')
-
-        goto(-300, 200)
-    for i in range(0, 3):
-        dessine_tour(n)
