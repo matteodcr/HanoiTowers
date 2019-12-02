@@ -1,6 +1,7 @@
 import pytest
 
 import partieA
+from storage import Storage
 
 
 def test_init_plateau():
@@ -46,3 +47,11 @@ def test_verifier_deplacement():
     assert partieA.verifier_deplacement(plateau, 1, 2) == False
     assert partieA.verifier_deplacement(plateau, 2, 0) == False
     assert partieA.verifier_deplacement(plateau, 0, 0) == False
+
+
+def test_scores_write():
+    storage = Storage()
+    storage.append_score("Naza", 3, 7)
+    
+    scores = storage.read_scores()
+    assert scores[0][0] == "Naza"

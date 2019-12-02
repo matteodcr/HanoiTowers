@@ -1,11 +1,22 @@
+import time
+
 from turtle import *
 from partieA import *
 from partieB import *
 
+from storage import Storage
+
 class Jeu:
 
     def __init__(self, n):
+        self.time_start = None
+        self.n = n
+        self.storage = Storage()
         self.plateau = init(n)  # Création d'un nouvel entier: count
+        self.coups_index = 1
+        self.coups = {
+            0: self.plateau,
+        }
 
     def nombre_disques(self, index_tour) : 
         '''Renvoie le nombre de disques dans index_tour '''
@@ -127,6 +138,8 @@ class Jeu:
         return index_tour_dep, index_tour_fin
 
     def changer_disque_tour(self, index_tour_dep, index_tour_fin):
+        self.coups_index += 1
+        self.coups[self.coups_index] = list(self.plateau)
         self.plateau[index_tour_fin].append(self.disque_superieur(index_tour_dep))
         del self.plateau[index_tour_dep][-1]
 
@@ -135,6 +148,9 @@ class Jeu:
         '''transfere un disque d'une tour a l'autre, en dessin et sur la liste'''
 
         index_tour_dep, index_tour_fin = self.lire_coords()
+
+        if self.time_start == None:
+            self.time_start = time.time()
 
         if index_tour_dep != -1:
             self.efface_disque(n, self.disque_superieur(index_tour_dep), 'single')
@@ -162,5 +178,11 @@ class Jeu:
             
             compteur += 1
         
+        for score in self.storage.get_scores_sorted():
+            average = score[3] / score[2]
+            print(score, average)
+
+        player_name = input("Votre nom: ")
+        self.storage.append_score(player_name, self.n, compteur, time.time() - self.time_start)
         return "Vous avez gagné"
 
