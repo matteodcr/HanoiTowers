@@ -1,31 +1,36 @@
-from turtle import *
+turtle = None
 
+def set_turtle(t):
+    global turtle
+    turtle = t
 
 def tourner_droite():
-    right(90)
+    turtle.right(90)
 
 def tourner_gauche():
-    left(90)
+    turtle.left(90)
 
 def rect(x, y, width, height, color = 'black', fill_color: str = None):
-    goto(x - 300, y + 180)
+    assert turtle != None, 'set_turtle was not called'
 
-    pencolor(color)
+    turtle.goto(x - 255, y - 100)
+
+    turtle.pencolor(color)
     if (fill_color is not None):
-        fillcolor(fill_color)
-        begin_fill()
+        turtle.fillcolor(fill_color)
+        turtle.begin_fill()
     else:
-        down()
+        turtle.down()
     
-    for i in range(0,2):
-        forward(width)
+    for _ in range(0,2):
+        turtle.forward(width)
         tourner_gauche()
-        forward(height)
+        turtle.forward(height)
         tourner_gauche()
     
-    pencolor('black')
+    turtle.pencolor('black')
     if (fill_color is not None):
-        end_fill()
-        fillcolor('black')
+        turtle.end_fill()
+        turtle.fillcolor('black')
     else:
-        up()
+        turtle.up()

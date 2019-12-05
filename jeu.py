@@ -9,6 +9,8 @@ from storage import Storage
 class Jeu:
 
     def __init__(self, n):
+        self.limite_coup = 100
+        self.compteur = 0
         self.time_start = None
         self.n = n
         self.storage = Storage()
@@ -106,23 +108,23 @@ class Jeu:
                 dessine_tour(n, i)
 
 
-    def dessine_config(self, n): 
+    def dessine_config(self): 
         '''dessine la config de depart'''
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
             for i in range(0, len(l)) :
-                self.dessine_disque(l[i],n,'black')
+                self.dessine_disque(l[i], self.n, 'black')
 
 
-    def efface_tout(self, n): 
+    def efface_tout(self): 
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
             for i in range(0, len(l)):
-                self.efface_disque(l[i], n, 'yesai')
+                self.efface_disque(l[i], self.n, 'yesai')
 
             goto(-300, 200)
         for i in range(0, 3):
-            dessine_tour(n)
+            dessine_tour(self.n)
 
 
     def lire_coords(self) -> tuple:
@@ -144,45 +146,35 @@ class Jeu:
         del self.plateau[index_tour_dep][-1]
 
 
-    def jouer_un_coup(self, n) -> int:
+    def jouer_un_coup(self, index_tour_dep, index_tour_fin) -> tuple:
         '''transfere un disque d'une tour a l'autre, en dessin et sur la liste'''
 
-        index_tour_dep, index_tour_fin = self.lire_coords()
+        self.compteur += 1
 
         if self.time_start == None:
             self.time_start = time.time()
 
         if index_tour_dep != -1:
-            self.efface_disque(n, self.disque_superieur(index_tour_dep), 'single')
+            self.efface_disque(self.n, self.disque_superieur(index_tour_dep), 'single')
             self.changer_disque_tour(index_tour_dep, index_tour_fin)
-            self.dessine_disque(self.disque_superieur(index_tour_fin), n, 'black') # a simplifier
-            return index_tour_dep
+            self.dessine_disque(self.disque_superieur(index_tour_fin), self.n, 'black') # a simplifier
 
-        else: return index_tour_dep
+            if self.compteur == self.limite_coup:
+                return True, "Limite de coup atteinte"
+
+            return self.verifier_victoire(self.n), ""
+
+        else:
+            return True, "Vous avez décidé d'arrêter"
 
 
     def boucle_jeu(self, n) -> str:
         '''boucle de jeu qui se coupe selon les conditions données ...'''
-        limite_coup = 100
-        compteur = 0
 
-        while not self.verifier_victoire(n):
-            arret = self.jouer_un_coup(n)
-            print(self.plateau)
-
-            if arret == -1: 
-                return "Vous avez decidé d'arrêter."
-            
-            if compteur == limite_coup:
-                return "Perdu ! Vous avez utilisé tous les coups"
-            
-            compteur += 1
-        
         for score in self.storage.get_scores_sorted():
             average = score[3] / score[2]
             print(score, average)
 
-        player_name = input("Votre nom: ")
         self.storage.append_score(player_name, self.n, compteur, time.time() - self.time_start)
         return "Vous avez gagné"
 
