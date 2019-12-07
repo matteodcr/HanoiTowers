@@ -52,6 +52,9 @@ class Jeu:
         '''Renvoie un booléen pour savoir si un deplacement de disque sup 
         de index_tour_dep vers disque sup de index_tour_fin est possible'''
 
+        if (index_tour_dep <= -1) or (index_tour_dep > 2) or (index_tour_fin < 0) or (index_tour_fin > 2) or (index_tour_fin == None) or (index_tour_fin == None):
+            return False
+        
         if self.nombre_disques(index_tour_dep) == 0:
             print("Erreur liste de depart vide")
             return False
@@ -128,7 +131,7 @@ class Jeu:
 
 
     def lire_coords(self) -> tuple:
-        '''trie les numéro de tour de dep. et d'arrivée pour qu'elle remplisse les conditions'''
+        '''[version console]trie les numéro de tour de dep. et d'arrivée pour qu'elle remplisse les conditions'''
 
         index_tour_dep = -2
         index_tour_fin = -2
@@ -138,6 +141,7 @@ class Jeu:
             index_tour_fin  = int(input("Saisir numéro tour arrivée : "))
 
         return index_tour_dep, index_tour_fin
+
 
     def changer_disque_tour(self, index_tour_dep, index_tour_fin):
         self.coups_index += 1
@@ -154,6 +158,8 @@ class Jeu:
         if self.time_start == None:
             self.time_start = time.time()
 
+        
+
         if index_tour_dep != -1:
             self.efface_disque(self.n, self.disque_superieur(index_tour_dep), 'single')
             self.changer_disque_tour(index_tour_dep, index_tour_fin)
@@ -169,7 +175,7 @@ class Jeu:
 
 
     def boucle_jeu(self, n) -> str:
-        '''boucle de jeu qui se coupe selon les conditions données ...'''
+        '''Boucle de jeu qui se coupe selon les conditions données '''
 
         for score in self.storage.get_scores_sorted():
             average = score[3] / score[2]

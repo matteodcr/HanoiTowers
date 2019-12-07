@@ -11,7 +11,8 @@ class GameScreen(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
-        self.last_button = None
+        self.first_tower = None
+        self.last_tower = None
 
         self.columnconfigure(0)
         self.rowconfigure(0, weight=1)
@@ -46,15 +47,28 @@ class GameScreen(tk.Frame):
 
         frame1.grid(row=0, column=0)
         frame2.grid(row=1, column=0)
-    
+
+    def button_play(self):
+        if self.game.verifier_deplacement(self.first_tower, self.last_tower) == False :
+            print('Deplacement impossible, veuillez réessayer.')
+            return None, None
+        else :
+            finished, message = self.game.jouer_un_coup(self.first_tower, self.last_tower)
+            return finished, message
+   
     def button_press(self, index: int):
-        if self.last_button is None:
-            self.last_button = index
+        if self.first_tower == None:
+            self.first_tower = index
         else:
-            finished, message = self.game.jouer_un_coup(self.last_button, index)
-            self.last_button = None
+            self.last_tower = index
+            finished, message = self.button_play()
+            self.first_tower = None
+            self.last_tower = None
+
             if finished:
                 self.on_game_finished(message)
+    
+
     
     def on_game_finished(self, message: str):
         print('Fin', message)
