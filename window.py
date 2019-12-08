@@ -6,6 +6,14 @@ from main_screen import MainScreen
 
 
 class Window(tk.Tk):
+    '''
+    Cette classe représente la fenêtre de jeu. Elle peut servir de conteneur 
+    pour différents écrans - "Screen". Il en existe 3:
+    
+    - MainScreen (écran principal)
+    - GameConfigScreen (écran de paramétrage du jeu juste avant une partie)
+    - GameScreen (écran de jeu, contient un canvas turtle)
+    '''
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,9 +32,17 @@ class Window(tk.Tk):
 
         self.show_frame(MainScreen)
 
+
     def show_frame(self, F, **kwargs):
-        '''Show a frame for the given page name'''
+        '''
+        Met à jour l'écran affiché dans la fenêtre.
+        F est une classe d'un écran (exemple "MainScreen")
+        '''
+
         if self.last_frame != None: self.last_frame.grid_remove()
+
+        # On instancie l'écran et on le positionne dans la fenêtre
         frame = F(parent=self.container, controller=self, **kwargs)
         frame.grid(row=0, column=0, sticky="nsew")
+
         self.last_frame = frame

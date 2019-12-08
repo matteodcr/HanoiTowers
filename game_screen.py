@@ -46,23 +46,24 @@ class GameScreen(tk.Frame):
         tk.Button(buttons_frame, text="     1     ", command=lambda: self.button_press(0)).grid(row=0, column=0, sticky='nesw')
         tk.Button(buttons_frame, text="     2     ", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='nesw')
         tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2)).grid(row=0, column=2, sticky='nesw')
-        cancel_button = tk.Button(buttons_frame, command=lambda: self.game.annuler_dernier_coup(game.coups, game.coups_index), bitmap='error'  ,bg='red')
+        cancel_button = tk.Button(buttons_frame, text='Annuler', command=lambda: self.game.annuler_dernier_coup(game.coups, game.coups_index), bg='red')
         cancel_button.grid(row=1, column=0, columnspan = 3, sticky='nesw')
-
-        
 
 
     def button_play(self):
         ''' Verifie si le deplacement est possible et le réalise si c'est le cas '''
-        if self.game.verifier_deplacement(self.first_tower, self.last_tower) == False :
+
+        if self.game.verifier_deplacement(self.first_tower, self.last_tower) == False:
             print('Deplacement impossible, veuillez réessayer.')
             return None, None
-        else :
+        else:
             finished, message = self.game.jouer_un_coup(self.first_tower, self.last_tower)
             return finished, message
-   
+
+
     def button_press(self, index: int):
-        ''' Enregistre quel bouton est pressé'''
+        ''' Enregistre quel bouton est pressé '''
+
         # Si le joueur designe la tour de depart
         if self.first_tower == None:
             self.first_tower = index
@@ -76,7 +77,7 @@ class GameScreen(tk.Frame):
 
             if finished:
                 self.on_game_finished(message)
-    
+
 
     
     def on_game_finished(self, message: str):

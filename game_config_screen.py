@@ -16,10 +16,11 @@ class GameConfigScreen(tk.Frame):
         tk.Entry(self, textvariable=namevar).pack()
 
         nvar = tk.IntVar()
-        tk.Scale(self, variable = nvar ,orient='horizontal', from_=2, to=20).pack()
+        tk.Scale(self, variable = nvar, orient='horizontal', from_=2, to=20).pack()
         
-        button_play = tk.Button(self, text="OK", command= lambda:self.collect(nvar, namevar, controller))
+        button_play = tk.Button(self, text="OK", command=lambda: self.collect(nvar, namevar, controller))
         button_play.pack()
+
 
     def collect(self, nvar, namevar, controller):
             self.n = nvar.get()

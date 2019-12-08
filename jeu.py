@@ -1,10 +1,9 @@
 import time
-
 from turtle import *
-from partieA import *
-from partieB import *
 
+from partieB import *
 from storage import Storage
+
 
 class Jeu:
 
@@ -14,16 +13,24 @@ class Jeu:
         self.time_start = None
         self.n = n
         self.storage = Storage()
-        self.plateau = init(n)  # Création d'un nouvel entier: count
+        self.plateau = self.init(n)  # Création d'un nouvel entier: count
         self.coups_index = 0
         self.cancel = 'notcancel'
         self.coups = {}
 
-    def nombre_disques(self, index_tour) : 
+
+    def init(self, n: int) -> list:
+        '''Crée une liste de liste représentant le plateau initial : [[n,...,2,1],[],[]]'''
+
+        return [list(range(n, 0, -1)), [], []]
+
+
+    def nombre_disques(self, index_tour: int): 
         '''Renvoie le nombre de disques dans index_tour '''
         return len(self.plateau[index_tour])
 
-    def disque_superieur(self, index_tour) -> int: 
+
+    def disque_superieur(self, index_tour: int) -> int: 
         '''Renvoie le dernier element de la liste index_tour : le disque superieur'''
 
         tour = self.plateau[index_tour] # Selectionne la tour choisie
@@ -31,7 +38,8 @@ class Jeu:
         if len(tour) == 0: return 0 
         else: return tour[len(tour) - 1]
 
-    def position_disque(self, num_disque) -> tuple: 
+
+    def position_disque(self, num_disque: int) -> tuple: 
         ''' [double boucle for] Renvoie l'index de la tour, l'index du disque et 
             la longueur de la tour'''
 
@@ -41,13 +49,13 @@ class Jeu:
             # On parcours les disques d'une tour
             for index_disque, valeur_disque in enumerate(valeur_tour):
 
-                if valeur_disque == num_disque : # Si on trouve le disque recherché
+                if valeur_disque == num_disque: # Si on trouve le disque recherché
                     return index_tour, index_disque, len(valeur_tour)
 
         raise IndexError()
 
 
-    def verifier_deplacement(self, index_tour_dep, index_tour_fin) -> bool:
+    def verifier_deplacement(self, index_tour_dep: int, index_tour_fin: int) -> bool:
         '''Renvoie un booléen pour savoir si un deplacement de disque sup 
         de index_tour_dep vers disque sup de index_tour_fin est possible'''
 
@@ -70,26 +78,27 @@ class Jeu:
         return True
 
 
-    def verifier_victoire(self, n) -> bool: 
+    def verifier_victoire(self) -> bool: 
         ''' Renvoie un booléen : la liste finale est elle l'inverse de la liste de départ ? '''
 
         copy = list(self.plateau) # Liste temporaire
 
-        compare = init(n) 
+        compare = self.init(self.n) 
         compare.reverse() # Liste de départ inversée : liste d'arrivée souhaitée
 
-        if copy != compare : return False
+        if copy != compare: return False
 
         return True
 
-    def dessine_disque(self, num_disque, n, color = 'black'): 
+
+    def dessine_disque(self, num_disque: int, color = 'black'): 
         ''' Dessine un disque specifique '''
 
         tour_index, hauteur, _ = self.position_disque(num_disque)
         disque_width = largeur_disque(num_disque)
 
         # Longueurs utilisées pour diriger la tortue
-        third_width = largeur_base(n) / 3
+        third_width = largeur_base(self.n) / 3
         third_x = third_width * tour_index
         offset = third_width / 2 - disque_width / 2
 
@@ -104,7 +113,7 @@ class Jeu:
 
     def efface_disque(self, n, num_disque, state): 
         ''' Efface un disque en utilisant dessine_disque mais en blanc '''
-        self.dessine_disque(num_disque, n, color='white')
+        self.dessine_disque(num_disque, color='white')
 
         # Si on efface qu'un seul disque (hors efface_tout)
         if state == 'single':
@@ -118,8 +127,8 @@ class Jeu:
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
             # Deuxième boucle pour les disques d'une tour [index_tour]
-            for i in range(0, len(l)) :
-                self.dessine_disque(l[i], self.n, 'black')
+            for i in range(0, len(l)):
+                self.dessine_disque(l[i], 'black')
 
 
     def efface_tout(self):
@@ -127,8 +136,7 @@ class Jeu:
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
             for i in range(0, len(l)):
-                self.efface_disque(l[i], self.n, 'yesai')
-            goto(-300, 200)
+                self.efface_disque(l[i], 'yesai')
         for i in range(0, 3):
             dessine_tour(self.n)
 
@@ -168,8 +176,11 @@ class Jeu:
         if index_tour_dep != -1:
             self.efface_disque(self.n, self.disque_superieur(index_tour_dep), 'single')
             self.changer_disque_tour(index_tour_dep, index_tour_fin)
-            self.dessine_disque(self.disque_superieur(index_tour_fin), self.n, 'black') 
-            return self.verifier_victoire(self.n), ""
+            self.dessine_disque(self.disque_superieur(index_tour_fin), 'black') 
+
+            won = self.verifier_victoire()
+
+            return won, ("Gagné" if won else "PERDU")
 
         if self.coups_index == self.limite_coup:
             return True, "Limite de coup atteinte"   
@@ -177,8 +188,10 @@ class Jeu:
         else:
             return True, "Vous avez décidé d'arrêter"
 
+
     def dernier_coup(self, coups: dict, dernier_index: int) -> tuple:
         return self.coups[self.coups_index]
+
 
     def annuler_dernier_coup(self, coups: dict, dernier_index: int) -> tuple:
         self.cancel = 'cancel'
@@ -188,15 +201,3 @@ class Jeu:
         self.coups_index -= 1 # Ajoute un point au compteur
         self.cancel = 'notcancel'
         return coup
-
-
-    def boucle_jeu(self, n) -> str:
-        ''' Boucle de jeu qui se coupe selon les conditions données '''
-
-        for score in self.storage.get_scores_sorted():
-            average = score[3] / score[2]
-            print(score, average)
-
-        self.storage.append_score(player_name, self.n, self.coups_index, time.time() - self.time_start)
-        return "Vous avez gagné"
-

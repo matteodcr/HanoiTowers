@@ -1,6 +1,7 @@
 from game_config_screen import GameConfigScreen
 import tkinter as tk
 
+from game_config_screen import GameConfigScreen
 
 BUTTON_WIDTH = 200
 BUTTON_HEIGHT = 80
@@ -15,6 +16,4 @@ class MainScreen(tk.Frame):
 
         credit = tk.Label(self, text = 'Edgar Onghena / Mattéo Decorsaire')
         credit.place(relx=0.0, rely=0.0, anchor=tk.NW)
-
-
 

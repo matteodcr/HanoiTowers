@@ -1,6 +1,4 @@
-from partieA import *
 from turtle_utils import *
-
 
 LARGEUR_PETIT_DISQUE = 40
 LARGEUR_TOUR = 6
@@ -46,6 +44,3 @@ def dessine_plateau(n):
     
     for i in range(0, 3):
         dessine_tour(n, i)
-
-
-

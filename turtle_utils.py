@@ -1,14 +1,18 @@
 turtle = None
 
+
 def set_turtle(t):
     global turtle
     turtle = t
 
+
 def tourner_droite():
     turtle.right(90)
 
+
 def tourner_gauche():
     turtle.left(90)
+
 
 def rect(x, y, width, height, color = 'black', fill_color: str = None):
     assert turtle != None, 'set_turtle was not called'
