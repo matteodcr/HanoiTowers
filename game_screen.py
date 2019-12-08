@@ -1,15 +1,20 @@
 import tkinter as tk
+import tkinter.messagebox as tkm
 from turtle import RawTurtle
 
 from jeu import Jeu
+from main_screen import MainScreen
 from partieB import dessine_plateau
 from turtle_utils import set_turtle
 
 
 class GameScreen(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, n, name):
         super().__init__(parent)
+
+        # On expose le controlleur au reste de la classe pour pouvoir naviguer
+        self.controller = controller
 
         self.first_tower = None
         self.last_tower = None
@@ -32,12 +37,11 @@ class GameScreen(tk.Frame):
         canvas.grid()
 
         # On initialise le jeu
-        game = Jeu(3)
+        game = Jeu(n)
         dessine_plateau(game.n)
         game.dessine_config()
         self.game = game
 
-        
         # Placement de la Frame qui contient les boutons
         buttons_frame = tk.Frame(frame2,  bg='red')
         buttons_frame.grid(sticky='nesw')
@@ -79,6 +83,8 @@ class GameScreen(tk.Frame):
                 self.on_game_finished(message)
 
 
-    
     def on_game_finished(self, message: str):
-        print('Fin', message)
+        from main_screen import MainScreen
+
+        tkm.showinfo('Jeu terminé', message)
+        self.controller.show_frame(MainScreen)

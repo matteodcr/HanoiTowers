@@ -1,6 +1,4 @@
-from game_screen import GameScreen
 import tkinter as tk
-
 
 BUTTON_WIDTH = 200
 BUTTON_HEIGHT = 80
@@ -23,11 +21,10 @@ class GameConfigScreen(tk.Frame):
 
 
     def collect(self, nvar, namevar, controller):
-            self.n = nvar.get()
-            self.name = namevar.get()
-            print(self.n, self.name) 
-            controller.show_frame(GameScreen)
-            
+        from game_screen import GameScreen
 
-    
-
+        controller.show_frame(
+            GameScreen,
+            name=namevar.get(),
+            n=int(nvar.get()),
+        )
