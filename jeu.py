@@ -72,7 +72,7 @@ class Jeu:
 
 
     def verifier_victoire(self, n) -> bool: 
-        '''Renvoie un booléen : la liste finale est elle l'inverse de la liste de départ ?'''
+        ''' Renvoie un booléen : la liste finale est elle l'inverse de la liste de départ ? '''
 
         copy = list(self.plateau) # Liste temporaire
 
@@ -84,11 +84,12 @@ class Jeu:
         return True
 
     def dessine_disque(self, num_disque, n, color = 'black'): 
-        '''dessine un disque specifique'''
+        ''' Dessine un disque specifique '''
 
         tour_index, hauteur, _ = self.position_disque(num_disque)
         disque_width = largeur_disque(num_disque)
 
+        # Longueurs utilisées pour diriger la tortue
         third_width = largeur_base(n) / 3
         third_x = third_width * tour_index
         offset = third_width / 2 - disque_width / 2
@@ -103,35 +104,39 @@ class Jeu:
 
 
     def efface_disque(self, n, num_disque, state): 
-        '''efface un disque en utilisant dessine_disque mais en blanc'''
+        ''' Efface un disque en utilisant dessine_disque mais en blanc '''
         self.dessine_disque(num_disque, n, color='white')
 
+        # Si on efface qu'un seul disque (hors efface_tout)
         if state == 'single':
             for i in range(0, 3):
                 dessine_tour(n, i)
 
 
     def dessine_config(self): 
-        '''dessine la config de depart'''
+        ''' Dessine la configuration initiale de plateau '''
+        # Première boucle pour les tours
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
+            # Deuxième boucle pour les disques d'une tour [index_tour]
             for i in range(0, len(l)) :
                 self.dessine_disque(l[i], self.n, 'black')
 
 
-    def efface_tout(self): 
+    def efface_tout(self):
+        ''' Efface tous les disques du plateau '''
         for index_tour in range(0, len(self.plateau)):
             l = list(self.plateau[index_tour])
             for i in range(0, len(l)):
                 self.efface_disque(l[i], self.n, 'yesai')
-
             goto(-300, 200)
         for i in range(0, 3):
             dessine_tour(self.n)
 
 
     def lire_coords(self) -> tuple:
-        '''[version console]trie les numéro de tour de dep. et d'arrivée pour qu'elle remplisse les conditions'''
+        '''[pas utilisé]
+            trie les numéro de tour de dep. et d'arrivée pour qu'elle remplisse les conditions'''
 
         index_tour_dep = -2
         index_tour_fin = -2
@@ -144,16 +149,16 @@ class Jeu:
 
 
     def changer_disque_tour(self, index_tour_dep, index_tour_fin):
-        self.coups_index += 1
-        self.coups[self.coups_index] = list(self.plateau)
+        ''' Modifie la liste et archive l'historique des configurations de plateau dans le dico '''
+        self.coups_index += 1 # Ajoute un point au compteur
+        self.coups[self.coups_index] = list(self.plateau) 
+
         self.plateau[index_tour_fin].append(self.disque_superieur(index_tour_dep))
         del self.plateau[index_tour_dep][-1]
 
 
     def jouer_un_coup(self, index_tour_dep, index_tour_fin) -> tuple:
-        '''transfere un disque d'une tour a l'autre, en dessin et sur la liste'''
-
-        self.compteur += 1
+        ''' Transfere un disque d'une tour a l'autre, en dessin et sur la liste '''
 
         if self.time_start == None:
             self.time_start = time.time()
@@ -163,7 +168,7 @@ class Jeu:
         if index_tour_dep != -1:
             self.efface_disque(self.n, self.disque_superieur(index_tour_dep), 'single')
             self.changer_disque_tour(index_tour_dep, index_tour_fin)
-            self.dessine_disque(self.disque_superieur(index_tour_fin), self.n, 'black') # a simplifier
+            self.dessine_disque(self.disque_superieur(index_tour_fin), self.n, 'black') 
 
             if self.compteur == self.limite_coup:
                 return True, "Limite de coup atteinte"
@@ -175,12 +180,12 @@ class Jeu:
 
 
     def boucle_jeu(self, n) -> str:
-        '''Boucle de jeu qui se coupe selon les conditions données '''
+        ''' Boucle de jeu qui se coupe selon les conditions données '''
 
         for score in self.storage.get_scores_sorted():
             average = score[3] / score[2]
             print(score, average)
 
-        self.storage.append_score(player_name, self.n, compteur, time.time() - self.time_start)
+        self.storage.append_score(player_name, self.n, self.coups_index, time.time() - self.time_start)
         return "Vous avez gagné"
 
