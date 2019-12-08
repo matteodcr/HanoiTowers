@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 import tkinter.messagebox as tkm
 from turtle import RawTurtle
@@ -18,6 +19,10 @@ class GameScreen(tk.Frame):
 
         self.first_tower = None
         self.last_tower = None
+
+        # Utilisé à la fin du jeu pour les scores
+        self.name = name
+        self.start_time = None
 
         self.columnconfigure(0)
         self.rowconfigure(0, weight=1)
@@ -68,6 +73,10 @@ class GameScreen(tk.Frame):
     def button_press(self, index: int):
         ''' Enregistre quel bouton est pressé '''
 
+        # Si c'est le premier coup, on lance le timer
+        if self.start_time is None:
+            self.start_time = time.time()
+
         # Si le joueur designe la tour de depart
         if self.first_tower == None:
             self.first_tower = index
@@ -85,6 +94,15 @@ class GameScreen(tk.Frame):
 
     def on_game_finished(self, message: str):
         from main_screen import MainScreen
+
+        if message == "Gagné":
+            game_length = time.time() - self.start_time
+            self.controller.storage.append_score(
+                self.name,
+                self.game.n,
+                self.game.coups_index,
+                game_length,
+            )
 
         tkm.showinfo('Jeu terminé', message)
         self.controller.show_frame(MainScreen)

@@ -3,6 +3,7 @@ import tkinter as tk
 from game_config_screen import GameConfigScreen
 from game_screen import GameScreen
 from main_screen import MainScreen
+from storage import Storage
 
 
 class Window(tk.Tk):
@@ -23,6 +24,8 @@ class Window(tk.Tk):
         self.geometry('600x360')
 
         self.last_frame = None
+
+        self.storage = Storage()
 
         container = tk.Frame(self)
         container.grid_rowconfigure(0, weight=1)

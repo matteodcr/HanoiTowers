@@ -1,4 +1,5 @@
 import tkinter as tk
+from random import randint
 
 BUTTON_WIDTH = 200
 BUTTON_HEIGHT = 80
@@ -10,7 +11,9 @@ class GameConfigScreen(tk.Frame):
         
         tk.Label(self, text="Nom").pack()
         
-        namevar = tk.StringVar()
+        randname = 'Player' + str(randint(0, 999)).ljust(3, '0')
+
+        namevar = tk.StringVar(value=randname)
         tk.Entry(self, textvariable=namevar).pack()
 
         nvar = tk.IntVar()

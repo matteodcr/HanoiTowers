@@ -35,8 +35,8 @@ class Storage:
         ''' Récolte toutes les données qui vont être rajoutées au fichier des scores '''
 
         now = time.time() 
-        score = (name, nb_disks, nb_moves, now)
-        
+        score = (name, nb_disks, nb_moves, game_length, now)
+
         # On met à jour le fichier grace aux fonctions précédentes
         scores = self.read_scores()
         scores.append(score)
@@ -44,8 +44,8 @@ class Storage:
 
 
     def get_scores_sorted(self, count = 5):
-        ''' Classe les scores en fonction du nombre de coups '''
+        ''' Classe les scores en fonction du temps de jeu '''
 
         scores = self.read_scores()
-        scores_sorted = sorted(scores, key=lambda score: score[2])
+        scores_sorted = sorted(scores, key=lambda score: score[3])
         return scores_sorted[:count]
