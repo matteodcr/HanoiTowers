@@ -10,15 +10,14 @@ class Jeu:
 
     def __init__(self, n):
         self.limite_coup = 100
-        self.compteur = 0
+        #self.compteur = 0
         self.time_start = None
         self.n = n
         self.storage = Storage()
         self.plateau = init(n)  # Création d'un nouvel entier: count
-        self.coups_index = 1
-        self.coups = {
-            0: self.plateau,
-        }
+        self.coups_index = 0
+        self.cancel = 'notcancel'
+        self.coups = {}
 
     def nombre_disques(self, index_tour) : 
         '''Renvoie le nombre de disques dans index_tour '''
@@ -150,8 +149,10 @@ class Jeu:
 
     def changer_disque_tour(self, index_tour_dep, index_tour_fin):
         ''' Modifie la liste et archive l'historique des configurations de plateau dans le dico '''
-        self.coups_index += 1 # Ajoute un point au compteur
-        self.coups[self.coups_index] = list(self.plateau) 
+        if self.cancel == 'notcancel' :
+            
+            self.coups_index += 1 # Ajoute un point au compteur
+            self.coups[self.coups_index] = (index_tour_dep, index_tour_fin)
 
         self.plateau[index_tour_fin].append(self.disque_superieur(index_tour_dep))
         del self.plateau[index_tour_dep][-1]
@@ -163,20 +164,30 @@ class Jeu:
         if self.time_start == None:
             self.time_start = time.time()
 
-        
-
+        print(self.coups)
         if index_tour_dep != -1:
             self.efface_disque(self.n, self.disque_superieur(index_tour_dep), 'single')
             self.changer_disque_tour(index_tour_dep, index_tour_fin)
             self.dessine_disque(self.disque_superieur(index_tour_fin), self.n, 'black') 
-
-            if self.compteur == self.limite_coup:
-                return True, "Limite de coup atteinte"
-
             return self.verifier_victoire(self.n), ""
+
+        if self.coups_index == self.limite_coup:
+            return True, "Limite de coup atteinte"   
 
         else:
             return True, "Vous avez décidé d'arrêter"
+
+    def dernier_coup(self, coups: dict, dernier_index: int) -> tuple:
+        return self.coups[self.coups_index]
+
+    def annuler_dernier_coup(self, coups: dict, dernier_index: int) -> tuple:
+        self.cancel = 'cancel'
+        coup = self.dernier_coup(self.coups, self.coups_index)
+        self.jouer_un_coup(coup[1], coup[0])
+        del self.coups[self.coups_index]
+        self.coups_index -= 1 # Ajoute un point au compteur
+        self.cancel = 'notcancel'
+        return coup
 
 
     def boucle_jeu(self, n) -> str:

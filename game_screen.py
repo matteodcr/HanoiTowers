@@ -24,8 +24,7 @@ class GameScreen(tk.Frame):
         frame1.grid(row=0, column=0)
         frame2.grid(row=1, column=0)
 
-
-        canvas = tk.Canvas(frame1, width=600, height=360)
+        canvas = tk.Canvas(frame1, width=600, height=300)
         turtle = RawTurtle(canvas)
         turtle.up()
         turtle.speed(1000)
@@ -46,7 +45,9 @@ class GameScreen(tk.Frame):
         # Placement des boutons pour les tours
         tk.Button(buttons_frame, text="     1     ", command=lambda: self.button_press(0)).grid(row=0, column=0, sticky='nesw')
         tk.Button(buttons_frame, text="     2     ", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='nesw')
-        tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2), bg='red').grid(row=0, column=2, sticky='nesw')
+        tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2)).grid(row=0, column=2, sticky='nesw')
+        cancel_button = tk.Button(buttons_frame, command=lambda: self.game.annuler_dernier_coup(game.coups, game.coups_index), bitmap='error'  ,bg='red')
+        cancel_button.grid(row=1, column=0, columnspan = 3, sticky='nesw')
 
         
 
