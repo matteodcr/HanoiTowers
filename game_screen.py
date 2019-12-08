@@ -18,37 +18,41 @@ class GameScreen(tk.Frame):
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=1, minsize=40)
 
+        # Placement de la Frame de turtle et de celle qui contient les boutons
         frame1 = tk.Frame(self)
         frame2 = tk.Frame(self)
+        frame1.grid(row=0, column=0)
+        frame2.grid(row=1, column=0)
+
 
         canvas = tk.Canvas(frame1, width=600, height=360)
         turtle = RawTurtle(canvas)
         turtle.up()
         turtle.speed(1000)
         set_turtle(turtle)
-        canvas.pack()
+        canvas.grid()
 
+        # On initialise le jeu
         game = Jeu(3)
         dessine_plateau(game.n)
         game.dessine_config()
         self.game = game
 
-        buttons_frame = tk.Frame(frame2)
-        buttons_frame.columnconfigure(0, weight=1)
-        buttons_frame.columnconfigure(1, weight=1)
-        buttons_frame.columnconfigure(2, weight=1)
-        buttons_frame.rowconfigure(0)
+        
+        # Placement de la Frame qui contient les boutons
+        buttons_frame = tk.Frame(frame2,  bg='red')
+        buttons_frame.grid(sticky='nesw')
 
-        tk.Button(buttons_frame, text="1", command=lambda: self.button_press(0)).grid(row=0, column=0, sticky='we')
-        tk.Button(buttons_frame, text="2", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='we')
-        tk.Button(buttons_frame, text="3", command=lambda: self.button_press(2)).grid(row=0, column=2, sticky='we')
+        # Placement des boutons pour les tours
+        tk.Button(buttons_frame, text="     1     ", command=lambda: self.button_press(0)).grid(row=0, column=0, sticky='nesw')
+        tk.Button(buttons_frame, text="     2     ", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='nesw')
+        tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2), bg='red').grid(row=0, column=2, sticky='nesw')
 
-        buttons_frame.pack(fill=tk.X, expand=tk.YES, anchor='s')
+        
 
-        frame1.grid(row=0, column=0)
-        frame2.grid(row=1, column=0)
 
     def button_play(self):
+        ''' Verifie si le deplacement est possible et le réalise si c'est le cas '''
         if self.game.verifier_deplacement(self.first_tower, self.last_tower) == False :
             print('Deplacement impossible, veuillez réessayer.')
             return None, None
@@ -57,8 +61,12 @@ class GameScreen(tk.Frame):
             return finished, message
    
     def button_press(self, index: int):
+        ''' Enregistre quel bouton est pressé'''
+        # Si le joueur designe la tour de depart
         if self.first_tower == None:
             self.first_tower = index
+
+        # Si le joueur designe la tour de d'arrivée
         else:
             self.last_tower = index
             finished, message = self.button_play()
