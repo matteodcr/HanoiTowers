@@ -52,7 +52,9 @@ class Jeu:
                 if valeur_disque == num_disque: # Si on trouve le disque recherché
                     return index_tour, index_disque, len(valeur_tour)
 
-        raise IndexError()
+        raise IndexError(
+            'Couldn\'t find disk {}, n={}'.format(num_disque, self.n)
+        )
 
 
     def verifier_deplacement(self, index_tour_dep: int, index_tour_fin: int) -> bool:
