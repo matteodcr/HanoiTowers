@@ -55,12 +55,31 @@ class GameScreen(tk.Frame):
         tk.Button(buttons_frame, text="     1     ", command=lambda: self.button_press(0)).grid(row=0, column=0, sticky='nesw')
         tk.Button(buttons_frame, text="     2     ", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='nesw')
         tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2)).grid(row=0, column=2, sticky='nesw')
-        cancel_button = tk.Button(buttons_frame, text='Annuler', command=lambda: self.game.annuler_dernier_coup(game.coups, game.coups_index), bg='red')
-        cancel_button.grid(row=1, column=0, columnspan = 2, sticky='nesw')
-        tk.Button(buttons_frame, text='Résoudre', command=lambda: self.solve()).grid(row=1, column=2, sticky='nesw')
+        tk.Button(buttons_frame, text='Ecran principal', command=lambda: self.navigate_to_main(), bg='red').grid(row=1, column=0, sticky='nesw')
+        action_button = tk.Button(buttons_frame, text='Résoudre', command=lambda: self.action_button_press())
+        action_button.grid(row=1, column=1, columnspan=2, sticky='nesw')
+        self.action_button = action_button
+
+
+    def navigate_to_main(self):
+        from main_screen import MainScreen
+        self.controller.show_frame(MainScreen)
+
+
+    def action_button_press(self):
+        ''' Quand le bouton annuler/résoudre est pressé '''
+        if self.game.coups_index == 0:
+            self.solve()
+        else:
+            self.game.annuler_dernier_coup(self.game.coups, self.game.coups_index)
+            if self.game.coups_index == 0:
+                self.action_button.configure(text='Résoudre')
 
 
     def solve(self):
+        self.action_button.configure(state=tk.DISABLED)
+        self.update() # Expliqué plus bas
+
         from solver import Solver
         solver = Solver(self.game)
         steps = solver.get_steps()
@@ -89,6 +108,8 @@ class GameScreen(tk.Frame):
     def button_press(self, index: int):
         ''' Enregistre quel bouton est pressé '''
 
+        self.action_button.configure(text='Annuler')
+
         # Si c'est le premier coup, on lance le timer
         if self.start_time is None:
             self.start_time = time.time()
@@ -109,8 +130,6 @@ class GameScreen(tk.Frame):
 
 
     def on_game_finished(self, message: str):
-        from main_screen import MainScreen
-
         if message == "Gagné":
             game_length = time.time() - self.start_time
             self.controller.storage.append_score(
@@ -121,4 +140,4 @@ class GameScreen(tk.Frame):
             )
 
         tkm.showinfo('Jeu terminé', message)
-        self.controller.show_frame(MainScreen)
+        self.navigate_to_main()
