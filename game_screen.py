@@ -56,7 +56,23 @@ class GameScreen(tk.Frame):
         tk.Button(buttons_frame, text="     2     ", command=lambda: self.button_press(1)).grid(row=0, column=1, sticky='nesw')
         tk.Button(buttons_frame, text="     3     ", command=lambda: self.button_press(2)).grid(row=0, column=2, sticky='nesw')
         cancel_button = tk.Button(buttons_frame, text='Annuler', command=lambda: self.game.annuler_dernier_coup(game.coups, game.coups_index), bg='red')
-        cancel_button.grid(row=1, column=0, columnspan = 3, sticky='nesw')
+        cancel_button.grid(row=1, column=0, columnspan = 2, sticky='nesw')
+        tk.Button(buttons_frame, text='Résoudre', command=lambda: self.solve()).grid(row=1, column=2, sticky='nesw')
+
+
+    def solve(self):
+        from solver import Solver
+        solver = Solver(self.game)
+        steps = solver.get_steps()
+        
+        for dep, arr in steps:
+            time.sleep(0.2)
+            self.button_press(dep) # On simule un clic sur le bouton de la tour de départ
+            self.button_press(arr) #                     "                      d'arrivée
+
+            # On met à jour la fenêtre manuellement car on est en train de 
+            # bloquer la boucle tk qui le fait normalement toute seule
+            self.update()
 
 
     def button_play(self):
