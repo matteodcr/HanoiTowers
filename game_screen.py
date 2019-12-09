@@ -77,6 +77,7 @@ class GameScreen(tk.Frame):
 
 
     def solve(self):
+        self.start_time = False # On définit une valeur spéciale pour pas compter le score à la fin
         self.action_button.configure(state=tk.DISABLED)
         self.update() # Expliqué plus bas
 
@@ -130,7 +131,7 @@ class GameScreen(tk.Frame):
 
 
     def on_game_finished(self, message: str):
-        if message == "Gagné":
+        if message == "Gagné" and self.start_time != False:
             game_length = time.time() - self.start_time
             self.controller.storage.append_score(
                 self.name,
