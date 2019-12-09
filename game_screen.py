@@ -35,10 +35,10 @@ class GameScreen(tk.Frame):
         frame2.grid(row=1, column=0)
 
         canvas = tk.Canvas(frame1, width=600, height=300)
-        turtle = RawTurtle(canvas)
+        turtle = RawTurtle(canvas, visible=False)
         turtle.up()
-        turtle.speed(1000)
-        set_turtle(turtle)
+        turtle._tracer(0) # Désactiver l'animation de déplacement
+        set_turtle(turtle) # Définir l'instance de turtle dans turtle_utils
         canvas.grid()
 
         # On initialise le jeu

@@ -6,18 +6,13 @@ def set_turtle(t):
     turtle = t
 
 
-def tourner_droite():
-    turtle.right(90)
-
-
-def tourner_gauche():
-    turtle.left(90)
-
-
 def rect(x, y, width, height, color = 'black', fill_color: str = None):
     assert turtle != None, 'set_turtle was not called'
 
-    turtle.goto(x - 255, y - 100)
+    x -= 255
+    y -= 100
+
+    turtle.goto(x, y)
 
     turtle.pencolor(color)
     if (fill_color is not None):
@@ -26,11 +21,10 @@ def rect(x, y, width, height, color = 'black', fill_color: str = None):
     else:
         turtle.down()
     
-    for _ in range(0,2):
-        turtle.forward(width)
-        tourner_gauche()
-        turtle.forward(height)
-        tourner_gauche()
+    turtle.goto(x + width, y)
+    turtle.goto(x + width, y + height)
+    turtle.goto(x, y + height)
+    turtle.goto(x, y)
     
     turtle.pencolor('black')
     if (fill_color is not None):
