@@ -2,3 +2,5 @@
 
 Edgar ONGHENA
 Mattéo DECORSAIRE
+
+Run main.py
