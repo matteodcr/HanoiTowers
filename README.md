@@ -1,3 +1,6 @@
 # projetinf101
 
-MAIS QUI VOILA JE
+Edgar ONGHENA
+Mattéo DECORSAIRE
+
+Run main.py
